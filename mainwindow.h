@@ -6,16 +6,16 @@
 #include <QListWidget>
 #include <QString>
 #include <QProcess>
+#include <QDir>
 #include <QStandardPaths>
 
-
-#define PATH QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)
-
 #if defined(Q_OS_WIN)
-#define TDESKTOP_PATH ".tmulti\\Telegram.exe"
+#define TDESKTOP_PATH ".fmulti\\falkon.exe"
 #else
-#define TDESKTOP_PATH "./.tmulti/Telegram"
+#define TDESKTOP_PATH "./.fmulti/falkon"
 #endif
+
+#include "tmulti.h"
 
 
 namespace Ui {
@@ -28,7 +28,6 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-
 private slots:
     void on_start_clicked();
 
@@ -41,6 +40,7 @@ private slots:
     void on_sessions_itemDoubleClicked(QListWidgetItem *item);
 
 private:
+    TMulti tmulti;
     QList<QProcess> tasks;
 
     QString getSelectedItem();

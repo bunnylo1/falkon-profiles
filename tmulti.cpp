@@ -4,9 +4,18 @@
 #include <QString>
 #include <QProcessEnvironment>
 #include <QStandardPaths>
+#include <QApplication>
 
 #include "tmulti.h"
 #include "mainwindow.h"
+
+TMulti::TMulti(){
+    QCoreApplication::setApplicationName("falkon");
+    PATH = QDir::cleanPath(
+    QStandardPaths::writableLocation(
+    QStandardPaths::AppConfigLocation) + 
+    QDir::separator() + "profiles");
+}
 
 QList<QString> TMulti::getSessions() {
     QList<QString> sessions = QDir(PATH)
@@ -17,12 +26,12 @@ QList<QString> TMulti::getSessions() {
             sessions.removeAll(name);
         }
     }
-    
+    /*
     QString defaultSession = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "TelegramDesktop", QStandardPaths::LocateDirectory);
     
     if (!defaultSession.isEmpty() && QDir(defaultSession).exists()) {
-        sessions.append("Default Telegram session");
-    }
+        sessions.append("Default Falkon session");
+    }*/
 
     return sessions;
 }
@@ -53,10 +62,10 @@ bool TMulti::launchSession(QString name) {
 
     QProcess *process = new QProcess();
     
-    if (name != "Default Telegram session") {
-        QStringList args = {"-many", "-workdir", QDir(PATH).absoluteFilePath(name)};
+//    if (name != "Default Falkon session") {
+        QStringList args = {"-r", "-p", name};
         process->setArguments(args);
-    }
+//    }
     
     process->setProgram(getTdesktopPath());
 
@@ -65,7 +74,7 @@ bool TMulti::launchSession(QString name) {
 }
 
 bool TMulti::isBadName(QString name) {
-    return name.contains(".") || name.contains("Default Telegram session");
+    return name.contains(".");//|| name.contains("Default Telegram session");
 }
 
 QString TMulti::getTdesktopPath() {
@@ -82,7 +91,7 @@ QString TMulti::getTdesktopPath() {
     
     foreach (QString path, envPath.split(":")) {
         QDir pathDir(path);
-        QFile file(pathDir.filePath("telegram-desktop"));
+        QFile file(pathDir.filePath("falkon"));
         
         if (file.exists()) {
             return file.fileName();

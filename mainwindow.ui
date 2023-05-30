@@ -11,12 +11,12 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>TMulti</string>
+   <string>Falkon Profiles Manager</string>
   </property>
-  <property name="windowIcon">
+  <!--property name="windowIcon">
    <iconset resource="res/resources.qrc">
     <normaloff>:/icon.png</normaloff>:/icon.png</iconset>
-  </property>
+  </property-->
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>

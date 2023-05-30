@@ -32,11 +32,12 @@ MainWindow::MainWindow(QWidget *parent) :
     );
 
     QDir curr = QDir();
-    if (!curr.exists(PATH)) {
-        curr.mkdir(PATH);
+    
+    if (!curr.exists(tmulti.PATH)) {
+        curr.mkdir(tmulti.PATH);
     }
 
-    foreach(QString session, TMulti::getSessions()) {
+    foreach(QString session, tmulti.getSessions()) {
         addItem(session);
     }
 
@@ -86,7 +87,7 @@ void MainWindow::on_start_clicked()
     QString name = getSelectedItem();
     if (name == nullptr) return;
 
-    if (!TMulti::launchSession(name)) {
+    if (!tmulti.launchSession(name)) {
         showError(tr("no_tdesktop"));
     }
 }
@@ -96,14 +97,14 @@ void MainWindow::on_add_clicked()
     QString name = inputTextDialog(tr("sess_name"));
     if (name == "") return;
 
-    bool res = TMulti::addSession(name);
+    bool res = tmulti.addSession(name);
     
     if (!res) {
         showError(tr("creation_err"));
         return;
     }
     
-    res = TMulti::launchSession(name);
+    res = tmulti.launchSession(name);
     
     if (!res) {
         showError(tr("no_tdesktop"));
@@ -118,7 +119,7 @@ void MainWindow::on_remove_clicked()
     QString name = getSelectedItem();
     if (name == nullptr) return;
 
-    bool res = TMulti::deleteSession(name);
+    bool res = tmulti.deleteSession(name);
 
     if (res) {
        deleteSelectedItem();
@@ -135,7 +136,7 @@ void MainWindow::on_edit_clicked()
     QString new_name = inputTextDialog(tr("new_name"));
     if (new_name == "") return;
 
-    bool res = TMulti::editSession(name, new_name);
+    bool res = tmulti.editSession(name, new_name);
 
     if (res) {
         deleteSelectedItem();
@@ -147,7 +148,7 @@ void MainWindow::on_edit_clicked()
 
 void MainWindow::on_sessions_itemDoubleClicked(QListWidgetItem *item)
 {
-    if (!TMulti::launchSession(item->text())) {
+    if (!tmulti.launchSession(item->text())) {
         showError(tr("no_tdesktop"));
     }
 }

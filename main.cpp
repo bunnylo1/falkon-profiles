@@ -2,6 +2,7 @@
 #include <QTranslator>
 
 #include "mainwindow.h"
+#include "tmulti.h"
 
 int main(int argc, char *argv[])
 {

@@ -6,15 +6,16 @@
 
 class TMulti {
 private:
-    static bool isBadName(QString name);
-    static QString getTdesktopPath();
-
+    bool isBadName(QString name);
+    QString getTdesktopPath();
 public:
-    static QList<QString> getSessions();
-    static bool editSession(QString old_name, QString new_name);
-    static bool deleteSession(QString name);
-    static bool addSession(QString name);
-    static bool launchSession(QString name);
+    QString PATH;
+    QList<QString> getSessions();
+    bool editSession(QString old_name, QString new_name);
+    bool deleteSession(QString name);
+    bool addSession(QString name);
+    bool launchSession(QString name);
+    TMulti();
 };
 
 #endif // TMULTI_H
